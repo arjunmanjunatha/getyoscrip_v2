@@ -98,7 +98,7 @@
         <input type="text" id="aid" name="aid" required>
       </div>
 	    
-<!-- Second question -->	   
+<!-- Second question -->
 <div class="form-group">
   <h3>Exclude Providers</h3>
   <label><input type="checkbox" name="exclude_providers[]" value="all" id="exclude-all" checked>ALL (Pop only)</label><br>
@@ -110,7 +110,6 @@
   <label><input type="checkbox" name="exclude_providers[]" value="hotelscombined" id="exclude-hotelscombined">Hotelscombined</label><br>
   <label><input type="checkbox" name="exclude_providers[]" value="none" id="exclude-none">None</label>
 </div>
-
 <!-- Third question -->
 <div class="form-group">
   <h3>Grab existing links from</h3>
@@ -119,11 +118,10 @@
   <label><input type="checkbox" name="grab_links[]" value="travel_payouts">TravelPayouts</label><br>
   <label><input type="text" name="grab_links[]" placeholder="Custom link">Custom</label>
 </div>
-	    <!-- Submit button -->
+<!-- Submit button -->
 <button type="submit" class="btn">Generate Script</button>
 
 </form>
-
 <!-- Output box -->
 <div id="output-box" style="display:none">
   <h3>Generated Script:</h3>
@@ -133,7 +131,7 @@
   </div>
 </div>
 
-	</form>
+
 	<script>
 function generateScript() {
   const aid = document.getElementById("aid").value;
@@ -188,11 +186,12 @@ function generateScript() {
 }
 
 
-  const scriptForm = document.getElementById("script-form");
-  scriptForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    generateScript();
-  });
+const scriptForm = document.getElementById("script-form");
+scriptForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  generateScript();
+});
+
 </script>
 
 </body>
