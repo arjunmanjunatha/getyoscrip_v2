@@ -144,7 +144,18 @@
 	<!-- this is the main sauce -->    
 
     function generateOutput() {
-        const aid = document.getElementById("aid").value.trim();
+    const aidInput = document.getElementById("aid");
+    const aid = aidInput.value.trim();
+    const aidPattern = /^[a-z0-9]+$/;
+
+    // Check if AID input is valid, and return early if not
+    if (!aidPattern.test(aid)) {
+        return;
+    }
+
+    // ... (the rest of your existing generateOutput function)
+}
+
         const excludes = Array.from(document.querySelectorAll("input[name='exclude']:checked")).map(input => input.value);
         const links = Array.from(document.querySelectorAll("input[name='links']:checked")).map(input => input.value);
         const custom = document.getElementById("custom").value.trim();
