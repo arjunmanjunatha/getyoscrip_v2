@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Yo Scrip</title>
+  <style>
+    h1 {
+      text-align: center;
+      font-weight: bold;
+    }
+    table {
+      margin: auto;
+    }
+    input[type="submit"] {
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      font-size: 1.2em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .output-box {
+      margin-top: 50px;
+      border: 2px solid #ccc;
+      padding: 20px;
+      background-color: #f1f1f1;
+      position: relative;
+    }
+    .copy-button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .copy-button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Get Yo Scrip</h1>
+  <form>
+    <table>
+      <tr>
+        <td><label for="aid">AID:</label></td>
+        <td><input type="text" id="aid" name="aid" required></td>
+      </tr>
+      <tr>
+        <td colspan="2"><h2>Input your details</h2></td>
+      </tr>
+      <tr>
+        <td><label>Exclude Providers:</label></td>
+        <td>
+          <input type="checkbox" name="exclude_providers[]" value="ALL" id="all"><label for="all">ALL (Pop only)</label><br>
+          <input type="checkbox" name="exclude_providers[]" value="Booking" id="booking"><label for="booking">Booking</label><br>
+          <input type="checkbox" name="exclude_providers[]" value="Expedia" id="expedia"><label for="expedia">Expedia</label><br>
+          <input type="checkbox" name="exclude_providers[]" value="VRBO" id="vrbo"><label for="vrbo">VRBO</label><br>
+          <input type="checkbox" name="exclude_providers[]" value="hotelscom" id="hotelscom"><label for="hotelscom">Hotels.com</label><br>
+          <input type="checkbox" name="exclude_providers[]" value="tripadvisor" id="tripadvisor"><label for="tripadvisor">Tripadvisor</label><br>
+          <input type="checkbox" name="exclude_providers[]" value="hotelscombined" id="hotelscombined"><label for="hotelscombined">Hotelscombined</label><br>
+          <input type="checkbox" name="exclude_providers[]" value="none" id="none" checked><label for="none">None</label>
+        </td>
+      </tr>
+      <h3>Grab existing links from</h3>
+<label>
+  <input type="checkbox" name="grab_links[]" value="none" checked>
+  None
+</label>
+<br>
+<label>
+  <input type="checkbox" name="grab_links[]" value="CJ">
+  CJ
+</label>
+<br>
+<label>
+  <input type="checkbox" name="grab_links[]" value="TravelPayouts">
+  TravelPayouts
+</label>
+<br>
+<label>
+  Custom:
+  <input type="text" name="grab_links[]" value="" placeholder="Enter custom URL">
+</label>
+
+<form id="stay22-form">
+  <!-- previous form elements here -->
+  
+  <div class="form-group">
+    <button type="submit" id="generate-code-btn" class="btn btn-primary">Generate Code</button>
+  </div>
+</form>
+
+<div class="output-section">
+  <label for="output-code">Generated Code:</label>
+  <textarea id="output-code" rows="10" cols="80"></textarea>
+</div>
+
+<script>
+  document.getElementById('stay22-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    var aid = document.getElementById('aid').value;
+    var excludes = [];
+    
+    if (document.getElementById('exclude-all').checked) {
+      excludes = ["vrbo","booking","expedia","tripadvisor","hotelscombined","hotelscom"];
+    } else {
+      if (document.getElementById('exclude-booking').checked) {
+        excludes.push('booking');
+      }
+      if (document.getElementById('exclude-expedia').checked) {
+        excludes.push('expedia');
+      }
+      if (document.getElementById('exclude-vrbo').checked) {
+        excludes.push('vrbo');
+      }
+      if (document.getElementById('exclude-hotelscom').checked) {
+        excludes.push('hotelscom');
+      }
+      if (document.getElementById('exclude-tripadvisor').checked) {
+        excludes.push('tripadvisor');
+      }
+      if (document.getElementById('exclude-hotelscombined').checked) {
+        excludes.push('hotelscombined');
+      }
+    }
+    
+    var deepStruct = [];
+    
+    if (document.getElementById('grab-links-none').checked) {
+      // no changes to deepStruct
+    } else {
+      if (document.getElementById('grab-links-cj').checked) {
+        deepStruct = deepStruct.concat(["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click"]);
+      }
+      if (document.getElementById('grab-links-travelpayouts').checked) {
+        deepStruct = deepStruct.concat(["tp.st/","tp.media/"]);
+      }
+      if (document.getElementById('grab-links-custom').value) {
+        deepStruct = deepStruct.concat([document.getElementById('grab-links-custom').value]);
+      }
+    }
+    
+    var outputCode = '<script>(function(s,t,a,y,twenty,two){s.Stay22=s.Stay22||{};s.Stay22.params={aid:"' + aid + '"';
+    
+    if (excludes.length > 0) {
+      outputCode += ',excludes:' + JSON.stringify(excludes);
+    }
+    
+    if (deepStruct.length > 0) {
+      outputCode += ',deepStruct:' + JSON.stringify(deepStruct);
+    }
+    
+    outputCode += '};twenty=t.createElement(a);two=t.getElementsByTagName(a)[0];twenty.async=1;twenty.src=y;two.parentNode.insertBefore(twenty,two);})(window,document,"script","https://scripts.stay22.com/letmeallez.js");<\/script>';
+    
+    document.getElementById('output-code').value = outputCode;
+  });
+</script>
+</html>
