@@ -174,12 +174,7 @@
         return;
     }
 
-   // Add the campaign parameter if a valid Campaign ID is provided
-    if (campaignId) {
-        scriptContent += `
-  campaign: "${campaignId}",`;
-    }
-
+  
 
         const excludes = Array.from(document.querySelectorAll("input[name='exclude']:checked")).map(input => input.value);
         const links = Array.from(document.querySelectorAll("input[name='links']:checked")).map(input => input.value);
@@ -215,8 +210,14 @@ s.Stay22.params = {
             linkValues.push(...customUrls);
         }
 
+
         scriptContent += `
   deepStruct: [${linkValues.map(value => `"${value}"`).join(",")}],`;
+    }
+	   // Add the campaign parameter if a valid Campaign ID is provided
+    if (campaignId) {
+        scriptContent += `
+  campaign: "${campaignId}",`;
     }
 
         scriptContent += `
