@@ -123,69 +123,46 @@
 </div>
 	</form>
 	<script>
-		function generateScript() {
-  const aid = document.getElementById("aid").value;
-  const excludes = Array.from(document.querySelectorAll('input[name="exclude_providers[]"]:checked'))
-    .map(input => input.value)
-    .filter(value => value !== "all");
-  const links = Array.from(document.querySelectorAll('input[name="grab_links[]"]:checked'))
-    .map(input => input.value)
-    .filter(value => value !== "none");
-  const customLink = document.getElementById("grab-custom").value;
-  const partnerUrl = document.getElementById("partner-url").value;
+  function generateScript() {
+    const aid = document.getElementById("aid").value;
+    const excludes = Array.from(document.querySelectorAll('input[name="exclude_providers[]"]:checked'))
+      .map(input => input.value)
+      .filter(value => value !== "all");
+    const partnerUrl = document.getElementById("partner-url").value;
 
-  const deepStruct = links.includes("cj")
-    ? ["fave.co/", "anrdoezrs.net/click", "kqzyfj.com/click", "dpbolvw.net/click", "tkqlhce.com/click", "jdoqocy.com/click"]
-    : links.includes("travel_payouts")
-    ? ["tp.st/", "tp.media/"]
-    : [];
+    const params = {
+      aid: `"${aid}"`,
+      excludes: excludes.length > 0 ? JSON.stringify(excludes) : undefined,
+      partner_url: partnerUrl !== "" ? partnerUrl : undefined,
+    };
 
-  if (customLink !== "") {
-    deepStruct.push(customLink);
+    const script = `
+      <script>
+        (function (s, t, a, y, twenty, two) {
+          s.Stay22 = s.Stay22 || {};
+          s.Stay22.params = ${JSON.stringify(params, null, 2)};
+          twenty = t.createElement(a);
+          two = t.getElementsByTagName(a)[0];
+          twenty.async = 1;
+          twenty.src = y;
+          two.parentNode.insertBefore(twenty, two);
+        })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
+      </script>
+    `;
+
+    const outputCode = document.getElementById("output-code");
+    outputCode.textContent = script;
+    const outputBox = document.getElementById("output-box");
+    outputBox.style.display = "block";
   }
 
-  const params = {
-    aid: `"${aid}"`,
-    excludes: excludes.length > 0 ? JSON.stringify(excludes) : undefined,
-    deepStruct: deepStruct.length > 0 ? JSON.stringify(deepStruct) : undefined,
-    partner_url: partnerUrl !== "" ? partnerUrl : undefined,
-  };
-
-  const script = `
-    <script>
-      (function (s, t, a, y, twenty, two) {
-        s.Stay22 = s.Stay22 || {};
-        s.Stay22.params = ${JSON.stringify(params, null, 2)};
-        twenty = t.createElement(a);
-        two = t.getElementsByTagName(a)[0];
-        twenty.async = 1;
-        twenty.src = y;
-        two.parentNode.insertBefore(twenty, two);
-      })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
-    </script>
-  `;
-
-  const outputCode = document.getElementById("output-code");
-  outputCode.textContent = script;
-  const outputBox = document.getElementById("output-box");
-  outputBox.style.display = "block";
-}
-	</script>
-	<script>
-function generateScript() {
-  // code for generateScript function
-}
-
-const scriptForm = document.getElementById("script-form");
-scriptForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  generateScript();
-});
+  const scriptForm = document.getElementById("script-form");
+  scriptForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    generateScript();
+  });
 </script>
+
 </body>
 </html>
-
-	
-	
-
 
