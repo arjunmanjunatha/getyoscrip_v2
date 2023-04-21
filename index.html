@@ -127,17 +127,22 @@
     </div>
 </div>
 	    <script>
-        document.getElementById("aid").addEventListener("input", function (event) {
-            const aidInput = event.target;
-            const aidWarning = document.getElementById("aidWarning");
+		    <!-- this is the AID validity bit -->
+	   document.getElementById("aid").addEventListener("input", function (event) {
+    const aidInput = event.target;
+    const aidWarning = document.getElementById("aidWarning");
+    const aidPattern = /^[a-z0-9]+$/;
 
-            if (!aidInput.validity.valid) {
-                aidWarning.textContent = "This can only be lowercase letters and numbers";
-            } else {
-                aidWarning.textContent = "";
-            }
-        });
-	    
+    if (!aidPattern.test(aidInput.value)) {
+        aidInput.setCustomValidity("Invalid AID");
+        aidWarning.textContent = "This can only be lowercase letters and numbers";
+    } else {
+        aidInput.setCustomValidity("");
+        aidWarning.textContent = "";
+    }
+});
+
+	<!-- this is the main sauce -->    
 
     function generateOutput() {
         const aid = document.getElementById("aid").value.trim();
