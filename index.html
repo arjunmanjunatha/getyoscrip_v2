@@ -98,121 +98,84 @@
         <input type="text" id="aid" name="aid" required>
       </div>
 	    
-<!-- Second question -->
-      <div class="form-group">
-        <h3>Exclude Providers</h3>
-        <label><input type="checkbox" name="exclude_providers[]" value="all" id="exclude-all" checked>ALL (Pop only)</label><br>
-        <label><input type="checkbox" name="exclude_providers[]" value="booking" id="exclude-booking">Booking</label><br>
-        <label><input type="checkbox" name="exclude_providers[]" value="expedia" id="exclude-expedia">Expedia</label><br>
-        <label><input type="checkbox" name="exclude_providers[]" value="vrbo" id="exclude-vrbo">VRBO</label><br>
-        <label><input type="checkbox" name="exclude_providers[]" value="hotelscom" id="exclude-hotelscom">Hotels.com</label><br>
-        <label><input type="checkbox" name="exclude_providers[]" value="tripadvisor" id="exclude-tripadvisor">TripAdvisor</label><br>
-        <label><input type="checkbox" name="exclude_providers[]" value="hotelscombined" id="exclude-hotelscombined">Hotelscombined</label><br>
-        <label><input type="checkbox" name="exclude_providers[]" value="none" id="exclude-none">None</label>
-      </div>
-      
-      <!-- Third question -->
-      <div class="form-group">
-        <h3>Grab existing links from</h3>
-        <label><input type="checkbox" name="grab_links[]" value="none" id="grab-none" checked>None</label><br>
-        <label><input type="checkbox" name="grab_links[]" value="cj" id="grab-cj">CJ</label><br>
-        <label><input type="checkbox" name="grab_links[]" value="travel_payouts" id="grab-travel-payouts">TravelPayouts</label><br>
-        <label><input type="text" name="grab_links[]" id="grab-custom">Custom</label><br>
-      </div>
-      
-      <!-- Submit button -->
-      <div class="form-group">
-        <button type="submit">Generate script</button>
-      </div>
-      
-    </form>
-	
-	    <!-- Output code box -->
-    <div id="output-box">
-      <h3>Generated Script:</h3>
-      <code id="output-code"></code>
-    </div>
-  
-  <script>
-  function generateScript() {
-  // Retrieve input values
-  const aidInput = document.getElementById("aid");
-  const excludesInputs = document.querySelectorAll('input[name="exclude_providers[]"]:checked');
-  const linksInputs = document.querySelectorAll('input[name="grab_links[]"]:checked');
-  const customLinkInput = document.getElementById("grab-custom");
+<!-- Second question -->	   
+<div class="form-group">
+  <h3>Exclude Providers</h3>
+  <label><input type="checkbox" name="exclude_providers[]" value="all" id="exclude-all" checked>ALL (Pop only)</label><br>
+  <label><input type="checkbox" name="exclude_providers[]" value="booking" id="exclude-booking">Booking</label><br>
+  <label><input type="checkbox" name="exclude_providers[]" value="expedia" id="exclude-expedia">Expedia</label><br>
+  <label><input type="checkbox" name="exclude_providers[]" value="vrbo" id="exclude-vrbo">VRBO</label><br>
+  <label><input type="checkbox" name="exclude_providers[]" value="hotelscom" id="exclude-hotelscom">Hotels.com</label><br>
+  <label><input type="checkbox" name="exclude_providers[]" value="tripadvisor" id="exclude-tripadvisor">TripAdvisor</label><br>
+  <label><input type="checkbox" name="exclude_providers[]" value="hotelscombined" id="exclude-hotelscombined">Hotelscombined</label><br>
+  <label><input type="checkbox" name="exclude_providers[]" value="none" id="exclude-none">None</label>
+</div>
 
-  // Parse input values
-  const aid = aidInput.value;
-  let excludes = [];
-  for (const input of excludesInputs) {
-    if (input.value !== "all") {
-      excludes.push(input.value);
-    }
-  }
-  const links = [];
-  for (const input of linksInputs) {
-    if (input.value !== "none") {
-      links.push(input.value);
-    }
-  }
-  const customLink = customLinkInput.value;
+	    <!-- Third question -->
+<div class="form-group">
+  <h3>Partner URL</h3>
+  <label for="partner-url">Enter your partner URL:</label>
+  <input type="url" name="partner-url" id="partner-url" placeholder="https://example.com/partner" required>
+</div>
+<!-- Submit button -->
+<div class="form-group">
+  <button type="submit">Generate script</button>
+</div>
+	</form>
+	<script>
+		function generateScript() {
+  const aid = document.getElementById("aid").value;
+  const excludes = Array.from(document.querySelectorAll('input[name="exclude_providers[]"]:checked'))
+    .map(input => input.value)
+    .filter(value => value !== "all");
+  const links = Array.from(document.querySelectorAll('input[name="grab_links[]"]:checked'))
+    .map(input => input.value)
+    .filter(value => value !== "none");
+  const customLink = document.getElementById("grab-custom").value;
+  const partnerUrl = document.getElementById("partner-url").value;
 
-  // Generate script
-  let script = `
-  <script>
-    (function (s, t, a, y, twenty, two) {
-      s.Stay22 = s.Stay22 || {};
+  const deepStruct = links.includes("cj")
+    ? ["fave.co/", "anrdoezrs.net/click", "kqzyfj.com/click", "dpbolvw.net/click", "tkqlhce.com/click", "jdoqocy.com/click"]
+    : links.includes("travel_payouts")
+    ? ["tp.st/", "tp.media/"]
+    : [];
 
-      // Just fill out your configs here
-      s.Stay22.params = {
-        aid: "${aid}", // your partner ID for tracking, keep quotes
-  `;
-  if (excludes.length > 0) {
-    script += `
-        excludes: ${JSON.stringify(excludes)},
-    `;
-  }
-  if (links.includes("cj")) {
-    script += `
-        deepStruct: ["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click"],
-    `;
-  }
-  if (links.includes("travel_payouts")) {
-    script += `
-        deepStruct: ["tp.st/","tp.media/"],
-    `;
-  }
-  if (links.includes("cj") && links.includes("travel_payouts")) {
-    script += `
-        deepStruct: ["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click","tp.st/","tp.media/"],
-    `;
-  }
   if (customLink !== "") {
-    script += `
-        deepStruct: ["${customLink}"],
-    `;
+    deepStruct.push(customLink);
   }
-  script += `
-      };
 
-      // Leave this part as-is;
-      twenty = t.createElement(a);
-      two = t.getElementsByTagName(a)[0];
-      twenty.async = 1;
-      twenty.src = y;
-      two.parentNode.insertBefore(twenty, two);
-    })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
-  </script>
+  const params = {
+    aid: `"${aid}"`,
+    excludes: excludes.length > 0 ? JSON.stringify(excludes) : undefined,
+    deepStruct: deepStruct.length > 0 ? JSON.stringify(deepStruct) : undefined,
+    partner_url: partnerUrl !== "" ? partnerUrl : undefined,
+  };
+
+  const script = `
+    <script>
+      (function (s, t, a, y, twenty, two) {
+        s.Stay22 = s.Stay22 || {};
+        s.Stay22.params = ${JSON.stringify(params, null, 2)};
+        twenty = t.createElement(a);
+        two = t.getElementsByTagName(a)[0];
+        twenty.async = 1;
+        twenty.src = y;
+        two.parentNode.insertBefore(twenty, two);
+      })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
+    </script>
   `;
 
-  // Display script
   const outputCode = document.getElementById("output-code");
   outputCode.textContent = script;
   const outputBox = document.getElementById("output-box");
   outputBox.style.display = "block";
 }
+	</script>
+	<script>
+function generateScript() {
+  // code for generateScript function
+}
 
-// Listen for form submit
 const scriptForm = document.getElementById("script-form");
 scriptForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -221,4 +184,8 @@ scriptForm.addEventListener("submit", (event) => {
 </script>
 </body>
 </html>
+
+	
+	
+
 
