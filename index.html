@@ -1,197 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Get Yo Scrip</title>
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: sans-serif;
-		}
-
-		h1 {
-			text-align: center;
-			font-weight: bold;
-			font-size: 2em;
-			margin: 1em 0;
-		}
-
-		h3 {
-			font-weight: bold;
-			font-size: 1.2em;
-			margin: 1.5em 0 0.5em;
-		}
-
-		table {
-			border-collapse: collapse;
-			width: 80%;
-			margin: 2em auto;
-		}
-
-		td {
-			padding: 0.5em;
-			border: 1px solid black;
-			vertical-align: middle;
-		}
-
-		label {
-			margin-right: 1em;
-		}
-
-		input[type=text], input[type=url] {
-			width: 100%;
-			padding: 0.5em;
-			border-radius: 5px;
-			border: 1px solid gray;
-			margin-bottom: 1em;
-		}
-
-		input[type=checkbox] {
-			margin-right: 0.5em;
-		}
-
-		.btn {
-			display: block;
-			margin: 2em auto;
-			padding: 0.5em 1em;
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			font-size: 1.2em;
-		}
-
-		.code-box {
-			width: 80%;
-			margin: 2em auto;
-			padding: 1em;
-			border: 1px solid gray;
-			border-radius: 5px;
-			font-size: 0.8em;
-			white-space: pre-wrap;
-		}
-
-		.copy-btn {
-			float: right;
-			margin-top: -1.8em;
-			margin-right: 0.5em;
-			padding: 0.5em 1em;
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			font-size: 0.8em;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Yo Scrip</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+        }
+        form {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .submit-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 30px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .output {
+            display: none;
+            margin: 20px 0;
+        }
+        .code-box {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            word-break: break-all;
+            word-wrap: break-word;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Input your details</h2>
-    
-    <form id="script-form">
-      
-      <!-- First question -->
-      <div class="form-group">
-        <label for="aid">AID:</label>
-        <input type="text" id="aid" name="aid" required>
-      </div>
-	    
-<!-- Second question -->
-<div class="form-group">
-  <h3>Exclude Providers</h3>
-  <label><input type="checkbox" name="exclude_providers[]" value="all" id="exclude-all" checked>ALL (Pop only)</label><br>
-  <label><input type="checkbox" name="exclude_providers[]" value="booking" id="exclude-booking">Booking</label><br>
-  <label><input type="checkbox" name="exclude_providers[]" value="expedia" id="exclude-expedia">Expedia</label><br>
-  <label><input type="checkbox" name="exclude_providers[]" value="vrbo" id="exclude-vrbo">VRBO</label><br>
-  <label><input type="checkbox" name="exclude_providers[]" value="hotelscom" id="exclude-hotelscom">Hotels.com</label><br>
-  <label><input type="checkbox" name="exclude_providers[]" value="tripadvisor" id="exclude-tripadvisor">TripAdvisor</label><br>
-  <label><input type="checkbox" name="exclude_providers[]" value="hotelscombined" id="exclude-hotelscombined">Hotelscombined</label><br>
-  <label><input type="checkbox" name="exclude_providers[]" value="none" id="exclude-none">None</label>
-</div>
-<!-- Third question -->
-<div class="form-group">
-  <h3>Grab existing links from</h3>
-  <label><input type="checkbox" name="grab_links[]" value="none" checked>None</label><br>
-  <label><input type="checkbox" name="grab_links[]" value="cj">CJ</label><br>
-  <label><input type="checkbox" name="grab_links[]" value="travel_payouts">TravelPayouts</label><br>
-  <label><input type="text" name="grab_links[]" id="grab-custom" placeholder="Custom link">Custom</label>
-	<!-- Fourth question -->
-<div class="form-group">
-  <h3>Custom Deep Link</h3>
-  <input type="url" id="grab-custom" name="grab_custom_link" placeholder="https://example.com?param=value">
-</div>
-<!-- Submit button -->
-<button type="submit" class="btn">Generate Script</button>
-
+    <h1>Get Yo Scrip</h1>
+    <form id="form">
+        <h2>Input your details</h2>
+        <div>
+            <label for="aid">AID:</label>
+            <input type="text" id="aid" name="aid" required>
+        </div>
+        <div>
+            <label>Exclude Providers:</label>
+            <input type="checkbox" id="all" name="exclude" value="all">
+            <label for="all">ALL (Pop only)</label>
+            <input type="checkbox" id="booking" name="exclude" value="booking">
+            <label for="booking">Booking</label>
+            <input type="checkbox" id="expedia" name="exclude" value="expedia">
+            <label for="expedia">Expedia</label>
+            <input type="checkbox" id="vrbo" name="exclude" value="vrbo">
+            <label for="vrbo">VRBO</label>
+            <input type="checkbox" id="hotelscom" name="exclude" value="hotelscom">
+            <label for="hotelscom">hotelscom</label>
+            <input type="checkbox" id="tripadvisor" name="exclude" value="tripadvisor">
+            <label for="tripadvisor">TripAdvisor</label>
+            <input type="checkbox" id="hotelscombined" name="exclude" value="hotelscombined">
+            <label for="hotelscombined">HotelsCombined</label>
+            <input type="checkbox" id="none" name="exclude" value="none" checked>
+            <label for="none">None</label>
+        </div>
+        <div>
+            <label>Grab existing links from:</label>
+            <input type="checkbox" id="none_cb" name="links" value="none" checked>
+            <label for="none_cb">None
+        <label for="none_cb">None</label>
+        <input type="checkbox" id="cj" name="links" value="cj">
+        <label for="cj">CJ</label>
+        <input type="checkbox" id="travelpayouts" name="links" value="travelpayouts">
+        <label for="travelpayouts">TravelPayouts</label>
+        <label for="custom">Custom:</label>
+        <input type="url" id="custom" name="links" placeholder="https://example.com/" pattern="https?://.+\..+/.+">
+    </div>
+    <button type="button" class="submit-btn" onclick="generateOutput()">Submit</button>
 </form>
-<!-- Output box -->
-<div id="output-box" style="display:none">
-  <h3>Generated Script:</h3>
-  <div class="code-box">
-    <pre id="output-code"></pre>
-    <button class="copy-btn">Copy to Clipboard</button>
-  </div>
+<div class="output" id="output">
+    <label>Generated Script:</label>
+    <pre class="code-box" id="generatedScript"></pre>
 </div>
+<script>
+    function generateOutput() {
+        const aid = document.getElementById("aid").value.trim();
+        const excludes = Array.from(document.querySelectorAll("input[name='exclude']:checked")).map(input => input.value);
+        const links = Array.from(document.querySelectorAll("input[name='links']:checked")).map(input => input.value);
+        const custom = document.getElementById("custom").value.trim();
 
+        let scriptContent = `<script>
+(function (s, t, a, y, twenty, two) {
+s.Stay22 = s.Stay22 || {};
+// Just fill out your configs here
+s.Stay22.params = {
+  aid: "${aid}",`;
 
-	<script>
-function generateScript() {
-  const aid = document.getElementById("aid").value;
-  const excludes = Array.from(document.querySelectorAll('input[name="exclude_providers[]"]:checked'))
-    .map(input => input.value)
-    .filter(value => value !== "all");
-  const links = Array.from(document.querySelectorAll('input[name="grab_links[]"]:checked'))
-    .map(input => input.value)
-    .filter(value => value !== "none");
-  const customLink = document.querySelector('input[name="grab_links[]"][value="custom"]').value;
-  const partnerUrl = document.getElementById("partner-url").value;
+        if (excludes.includes("all")) {
+            scriptContent += `
+  excludes: ["vrbo","booking","expedia","tripadvisor","hotelscombined","hotelscom"],`;
+        } else if (!excludes.includes("none")) {
+            const excludeValues = excludes.filter(value => value !== "none").map(value => `"${value}"`).join(",");
+            scriptContent += `
+  excludes: [${excludeValues}],`;
+        }
 
-  let deepStruct = [];
+        if (!links.includes("none") || custom) {
+            const linkValues = [];
+            if (links.includes("cj")) {
+                linkValues.push("fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click");
+            }
+            if (links.includes("travelpayouts")) {
+                linkValues.push("tp.st/","tp.media/");
+            }
+            if (custom) {
+                linkValues.push(custom);
+            }
 
-  if (links.includes("cj")) {
-    deepStruct = ["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click"];
-  }
+            scriptContent += `
+  deepStruct: [${linkValues.map(value => `"${value}"`).join(",")}],`;
+        }
 
-  if (links.includes("travel_payouts")) {
-    deepStruct = ["tp.st/", "tp.media/"];
-  }
+        scriptContent += `
+};
 
-  if (customLink !== "") {
-    deepStruct.push(customLink);
-  }
-
-  const params = {
-    aid: `"${aid}"`,
-    excludes: excludes.length > 0 ? JSON.stringify(excludes) : undefined,
-    deepStruct: deepStruct.length > 0 ? JSON.stringify(deepStruct) : undefined,
-    partner_url: partnerUrl !== "" ? partnerUrl : undefined,
-  };
-
-  const script = `
-    <script>
-      (function (s, t, a, y) {
-        s.Stay22 = s.Stay22 || {};
-        s.Stay22.params = ${JSON.stringify(params, null, 2)};
-        var twenty = t.createElement(a);
-        var two = t.getElementsByTagName(a)[0];
-        twenty.async = 1;
-        twenty.src = y;
-        two.parentNode.insertBefore(twenty, two);
-      })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
-    <\/script>
-  `;
-
-  const outputCode = document.getElementById("output-code");
-  outputCode.textContent = script;
-  const outputBox = document.getElementById("output-box");
-  outputBox.style.display = "block";
-}
-
-
+// Leave this part as-is;
+twenty = t.createElement(a);
+two = t.getElementsByTagName(a)[0];
+twenty.async = 1;
+twenty.src = y;
+two.parentNode.insertBefore(twenty, two);
+})(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
+<\/script>`;
+	            const generatedScript = document.getElementById("generatedScript");
+        generatedScript.textContent = scriptContent;
+        document.getElementById("output").style.display = "block";
+    }
 </script>
-
 </body>
 </html>
-
