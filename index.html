@@ -105,15 +105,13 @@
         </div>
         <div>
             <label>Grab existing links from:</label>
-            <input type="checkbox" id="none_cb" name="links" value="none" checked>
-            <label for="none_cb">None
-        <label for="none_cb">None</label>
+            
         <input type="checkbox" id="cj" name="links" value="cj">
         <label for="cj">CJ</label>
         <input type="checkbox" id="travelpayouts" name="links" value="travelpayouts">
         <label for="travelpayouts">TravelPayouts</label>
         <label for="custom">Custom:</label>
-        <input type="url" id="custom" name="links" placeholder="https://example.com/" pattern="https?://.+\..+/.+">
+        <input type="url" id="custom" name="links" placeholder="example.com/" pattern="https?://.+\..+/.+">
     </div>
     <button type="button" class="submit-btn" onclick="generateOutput()">Submit</button>
 </form>
