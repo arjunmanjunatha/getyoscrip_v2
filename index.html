@@ -111,7 +111,8 @@
         <input type="checkbox" id="travelpayouts" name="links" value="travelpayouts">
         <label for="travelpayouts">TravelPayouts</label>
         <label for="custom">Custom:</label>
-        <input type="url" id="custom" name="links" placeholder="example.com/" pattern="https?://.+\..+/.+">
+        <input type="text" id="custom" name="links" placeholder="example.com/, another-example.com/">
+
     </div>
     <button type="button" class="submit-btn" onclick="generateOutput()">Submit</button>
 </form>
@@ -174,21 +175,23 @@ s.Stay22.params = {
   excludes: [${excludeValues}],`;
         }
 
-        if (!links.includes("none") || custom) {
-            const linkValues = [];
-            if (links.includes("cj")) {
-                linkValues.push("fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click");
-            }
-            if (links.includes("travelpayouts")) {
-                linkValues.push("tp.st/","tp.media/");
-            }
-            if (custom) {
-                linkValues.push(custom);
-            }
-
-            scriptContent += `
-  deepStruct: [${linkValues.map(value => `"${value}"`).join(",")}],`;
+  if (!links.includes("none") || custom) {
+        const linkValues = [];
+        if (links.includes("cj")) {
+            linkValues.push("fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click");
         }
+        if (links.includes("travelpayouts")) {
+            linkValues.push("tp.st/","tp.media/");
+        }
+        if (custom) {
+            // Split the custom URLs by comma and trim whitespace
+            const customUrls = custom.split(',').map(url => url.trim());
+            linkValues.push(...customUrls);
+        }
+
+        scriptContent += `
+  deepStruct: [${linkValues.map(value => `"${value}"`).join(",")}],`;
+    }
 
         scriptContent += `
 };
