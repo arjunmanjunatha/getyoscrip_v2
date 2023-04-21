@@ -68,6 +68,11 @@
 .copy-btn:hover {
     opacity: 1;
 }
+	   	            .warning {
+            color: red;
+            font-size: 12px;
+            margin-left: 4px;
+        }
 
     </style>
 </head>
@@ -120,8 +125,19 @@
         <button onclick="copyToClipboard()" class="copy-btn">Copy to Clipboard</button>
     </div>
 </div>
+	    <script>
+        document.getElementById("aid").addEventListener("input", function (event) {
+            const aidInput = event.target;
+            const aidWarning = document.getElementById("aidWarning");
 
-<script>
+            if (!aidInput.validity.valid) {
+                aidWarning.textContent = "This can only be lowercase letters and numbers";
+            } else {
+                aidWarning.textContent = "";
+            }
+        });
+	    
+
     function generateOutput() {
         const aid = document.getElementById("aid").value.trim();
         const excludes = Array.from(document.querySelectorAll("input[name='exclude']:checked")).map(input => input.value);
