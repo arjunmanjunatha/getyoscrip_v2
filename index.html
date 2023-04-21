@@ -145,7 +145,7 @@ function generateScript() {
   const links = Array.from(document.querySelectorAll('input[name="grab_links[]"]:checked'))
     .map(input => input.value)
     .filter(value => value !== "none");
-  const customLink = document.getElementById("grab-custom").value;
+  const customLink = document.querySelector('input[name="grab_links[]"][value="custom"]').value;
   const partnerUrl = document.getElementById("partner-url").value;
 
   let deepStruct = [];
@@ -171,11 +171,11 @@ function generateScript() {
 
   const script = `
     <script>
-      (function (s, t, a, y, twenty, two) {
+      (function (s, t, a, y) {
         s.Stay22 = s.Stay22 || {};
         s.Stay22.params = ${JSON.stringify(params, null, 2)};
-        twenty = t.createElement(a);
-        two = t.getElementsByTagName(a)[0];
+        var twenty = t.createElement(a);
+        var two = t.getElementsByTagName(a)[0];
         twenty.async = 1;
         twenty.src = y;
         two.parentNode.insertBefore(twenty, two);
@@ -189,12 +189,6 @@ function generateScript() {
   outputBox.style.display = "block";
 }
 
-
-const scriptForm = document.getElementById("script-form");
-scriptForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  generateScript();
-});
 
 </script>
 
