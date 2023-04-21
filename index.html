@@ -135,83 +135,83 @@
   
   <script>
   function generateScript() {
-    // Retrieve input values
-    const aidInput = document.getElementById("aid-input");
-    const excludesInputs = document.querySelectorAll('input[name="exclude_providers[]"]:checked');
-    const linksInputs = document.querySelectorAll('input[name="links"]:checked');
-    const customLinkInput = document.getElementById("custom-link-input");
+  // Retrieve input values
+  const aidInput = document.getElementById("aid");
+  const excludesInputs = document.querySelectorAll('input[name="exclude_providers[]"]:checked');
+  const linksInputs = document.querySelectorAll('input[name="grab_links[]"]:checked');
+  const customLinkInput = document.getElementById("grab-custom");
 
-    // Parse input values
-    const aid = aidInput.value;
-    let excludes = [];
-    for (const input of excludesInputs) {
-      if (input.value !== "all") {
-        excludes.push(input.value);
-      }
+  // Parse input values
+  const aid = aidInput.value;
+  let excludes = [];
+  for (const input of excludesInputs) {
+    if (input.value !== "all") {
+      excludes.push(input.value);
     }
-    const links = [];
-    for (const input of linksInputs) {
-      if (input.value !== "none") {
-        links.push(input.value);
-      }
-    }
-    const customLink = customLinkInput.value;
-
-    // Generate script
-    let script = `
-    <script>
-      (function (s, t, a, y, twenty, two) {
-        s.Stay22 = s.Stay22 || {};
-  
-        // Just fill out your configs here
-        s.Stay22.params = {
-          aid: "${aid}", // your partner ID for tracking, keep quotes
-    `;
-    if (excludes.length > 0) {
-      script += `
-          excludes: ${JSON.stringify(excludes)},
-      `;
-    }
-    if (links.includes("cj")) {
-      script += `
-          deepStruct: ["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click"],
-      `;
-    }
-    if (links.includes("travel-payouts")) {
-      script += `
-          deepStruct: ["tp.st/","tp.media/"],
-      `;
-    }
-    if (links.includes("cj") && links.includes("travel-payouts")) {
-      script += `
-          deepStruct: ["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click","tp.st/","tp.media/"],
-      `;
-    }
-    if (customLink !== "") {
-  script += `
-      deepStruct: ["${customLink}"],
-  `;
-}
-script += `
-    };
-  
-    // Leave this part as-is;
-    twenty = t.createElement(a);
-    two = t.getElementsByTagName(a)[0];
-    twenty.async = 1;
-    twenty.src = y;
-    two.parentNode.insertBefore(twenty, two);
-  })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
-</script>
-`;
-
-
-    // Display script
-    const outputCode = document.getElementById("output-code");
-    outputCode.textContent = script;
-    const outputBox = document.getElementById("output-box");
-    outputBox.style.display = "block";
   }
+  const links = [];
+  for (const input of linksInputs) {
+    if (input.value !== "none") {
+      links.push(input.value);
+    }
+  }
+  const customLink = customLinkInput.value;
+
+  // Generate script
+  let script = `
+  <script>
+    (function (s, t, a, y, twenty, two) {
+      s.Stay22 = s.Stay22 || {};
+
+      // Just fill out your configs here
+      s.Stay22.params = {
+        aid: "${aid}", // your partner ID for tracking, keep quotes
+  `;
+  if (excludes.length > 0) {
+    script += `
+        excludes: ${JSON.stringify(excludes)},
+    `;
+  }
+  if (links.includes("cj")) {
+    script += `
+        deepStruct: ["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click"],
+    `;
+  }
+  if (links.includes("travel_payouts")) {
+    script += `
+        deepStruct: ["tp.st/","tp.media/"],
+    `;
+  }
+  if (links.includes("cj") && links.includes("travel_payouts")) {
+    script += `
+        deepStruct: ["fave.co/","anrdoezrs.net/click","kqzyfj.com/click","dpbolvw.net/click","tkqlhce.com/click","jdoqocy.com/click","tp.st/","tp.media/"],
+    `;
+  }
+  if (customLink !== "") {
+    script += `
+        deepStruct: ["${customLink}"],
+    `;
+  }
+  script += `
+      };
+
+      // Leave this part as-is;
+      twenty = t.createElement(a);
+      two = t.getElementsByTagName(a)[0];
+      twenty.async = 1;
+      twenty.src = y;
+      two.parentNode.insertBefore(twenty, two);
+    })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
+  </script>
+  `;
+
+  // Display script
+  const outputCode = document.getElementById("output-code");
+  outputCode.textContent = script;
+  const outputBox = document.getElementById("output-box");
+  outputBox.style.display = "block";
+}
+
 </script>
   </body>
 </html>
