@@ -97,8 +97,8 @@
         <label for="aid">AID:</label>
         <input type="text" id="aid" name="aid" required>
       </div>
-      
-      <!-- Second question -->
+	    
+<!-- Second question -->
       <div class="form-group">
         <h3>Exclude Providers</h3>
         <label><input type="checkbox" name="exclude_providers[]" value="all" id="exclude-all" checked>ALL (Pop only)</label><br>
@@ -126,8 +126,8 @@
       </div>
       
     </form>
-    
-    <!-- Output code box -->
+	
+	    <!-- Output code box -->
     <div id="output-box">
       <h3>Generated Script:</h3>
       <code id="output-code"></code>
@@ -202,9 +202,9 @@
       twenty.src = y;
       two.parentNode.insertBefore(twenty, two);
     })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
-  
+  </script>
   `;
-  
+
   // Display script
   const outputCode = document.getElementById("output-code");
   outputCode.textContent = script;
@@ -212,6 +212,13 @@
   outputBox.style.display = "block";
 }
 
+// Listen for form submit
+const scriptForm = document.getElementById("script-form");
+scriptForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  generateScript();
+});
 </script>
-  </body>
+</body>
 </html>
+
