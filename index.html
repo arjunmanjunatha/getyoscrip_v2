@@ -345,18 +345,14 @@ if (pLevelSlider == "2") {
   maxPLevel: "none",`;
 }
 
-// Leave this part as-is;
+// Modified this part to prevent errors
 scriptContent += `
-})(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
-` + "<" + "/script>";
+})(window, document, "script", "https://scripts.stay22.com/letmeallez.js");` + "<" + "/script>";
 
 const generatedScript = document.getElementById("generatedScript");
 generatedScript.textContent = scriptContent;
 document.getElementById("output").style.display = "flex";
 document.getElementById("output").style.flexDirection = "column";
-
-	
-
     
 	<!-- This is copy to clipboard -->
 <script>
