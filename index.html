@@ -353,19 +353,18 @@ const generatedScript = document.getElementById("generatedScript");
 generatedScript.textContent = scriptContent;
 document.getElementById("output").style.display = "flex";
 document.getElementById("output").style.flexDirection = "column";
-		</script>
-    
-	//This is copy to clipboard 
-<script>
-  function copyToClipboard() {
-    const codeBox = document.getElementById("generatedScript");
-    const textArea = document.createElement("textarea");
-    textArea.value = codeBox.textContent;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textArea);
-  }
+}
+
+//This is copy to clipboard 
+function copyToClipboard() {
+  const codeBox = document.getElementById("generatedScript");
+  const textArea = document.createElement("textarea");
+  textArea.value = codeBox.textContent;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
+}
 </script>
 
 </body>
