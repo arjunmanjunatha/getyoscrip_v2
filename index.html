@@ -344,9 +344,14 @@ if (pLevelSlider == "2") {
   scriptContent += `
   maxPLevel: "none",`;
 }
-
-// Modified this part to prevent errors
+//do not touch block
 scriptContent += `
+  // Leave this part as-is;
+  twenty = t.createElement(a);
+  two = t.getElementsByTagName(a)[0];
+  twenty.async = 1;
+  twenty.src = y;
+  two.parentNode.insertBefore(twenty, two);
 })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");` + "<" + "/script>";
 
 const generatedScript = document.getElementById("generatedScript");
