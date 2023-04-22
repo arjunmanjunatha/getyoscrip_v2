@@ -358,22 +358,24 @@ two.parentNode.insertBefore(twenty, two);
 document.getElementById("output").style.flexDirection = "column";
 
     
-	//this is copy to clipboard 
-	function copyToClipboard() {
-        const codeBox = document.getElementById("generatedScript");
-        const textArea = document.createElement("textarea");
-        textArea.value = codeBox.textContent;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textArea);
-    }
+	// This is copy to clipboard
+  function copyToClipboard() {
+    const codeBox = document.getElementById("generatedScript");
+    const textArea = document.createElement("textarea");
+    textArea.value = codeBox.textContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+  }
+</script>
 
-    // Add this event listener outside of the copyToClipboard function
-    document.getElementById("form").addEventListener("submit", function (event) {
-        event.preventDefault();
-        generateOutput();
-    });
+<!-- Move the event listener outside the <script> element -->
+<script>
+  document.getElementById("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    generateOutput();
+  });
 </script>
 </body>
 </html>
