@@ -82,24 +82,32 @@
     margin-bottom: 10px;
 }
 
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .slider-label {
-    position: relative;
+    display: inline-block;
+    padding: 2px 4px;
     background-color: #007BFF;
     color: #FFF;
-    padding: 2px 4px;
     border-radius: 4px;
     opacity: 0.8;
     cursor: pointer;
+    user-select: none; /* Prevents text selection when clicked */
 }
 
 .slider-label:hover {
     opacity: 1;
 }
 
-/* Retro text shadow */
-.slider-label {
-    text-shadow: 1px 1px 0px #ffc000, 2px 2px 0px #ff9a00, 3px 3px 0px #ff8c00, 4px 4px 0px #ff7e00;
-}
 
     </style>
 </head>
@@ -304,20 +312,20 @@ two.parentNode.insertBefore(twenty, two);
     }
 	<!-- this is copy to clipboard -->
 	function copyToClipboard() {
-		document.getElementById("form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    generateOutput();
-});
+        const codeBox = document.getElementById("generatedScript");
+        const textArea = document.createElement("textarea");
+        textArea.value = codeBox.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+    }
 
-    const codeBox = document.getElementById("generatedScript");
-    const textArea = document.createElement("textarea");
-    textArea.value = codeBox.textContent;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textArea);
-}
-
+    // Add this event listener outside of the copyToClipboard function
+    document.getElementById("form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        generateOutput();
+    });
 </script>
 </body>
 </html>
