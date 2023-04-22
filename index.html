@@ -74,6 +74,7 @@
             margin-left: 4px;
         }
 	    /* Slider */
+/* Slider */
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
@@ -94,13 +95,15 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
   height: 20px;
   width: 20px;
   background-color: #007BFF;
   border-radius: 50%;
   cursor: pointer;
-  -webkit-appearance: none;
   margin-top: -6px;
+  position: relative;
+  z-index: 1;
 }
 
 input[type=range]::-moz-range-track {
@@ -117,6 +120,38 @@ input[type=range]::-moz-range-thumb {
   background-color: #007BFF;
   border-radius: 50%;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+input[type=range]::-ms-thumb {
+  height: 20px;
+  width: 20px;
+  background-color: #007BFF;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
 }
 
 /* Slider labels */
@@ -153,6 +188,7 @@ input[type=range]::-moz-range-thumb {
 .slider-label:hover {
     opacity: 1;
 }
+
 
 input[type="text"], input[type="checkbox"], input[type="range"] {
     border-radius: 5px;
@@ -217,16 +253,15 @@ input[type="text"]:focus, input[type="checkbox"]:focus, input[type="range"]:focu
     </div>
 	    <!-- POP LEVEL SELECTOR -->
 <div>
-    <label for="pLevelSlider">Choose your POP level:</label>
-    <input type="range" id="pLevelSlider" name="pLevelSlider" min="1" max="3" step="1" value="1">
-    <div class="slider-labels">
-        <span class="slider-label" id="sliderLabel1">Wild</span>
-        <span class="slider-label" id="sliderLabel2">Vanilla</span>
-        <span class="slider-label" id="sliderLabel3">Virgin</span>
-    </div>
-    <span class="warning" id="pLevelSliderWarning"></span>
+  <label for="pLevelSlider">Choose your POP level:</label>
+  <input type="range" id="pLevelSlider" name="pLevelSlider" min="1" max="3" step="1" value="1">
+  <div class="slider-labels">
+    <span class="slider-label" id="sliderLabel1">Wild</span>
+    <span class="slider-label" id="sliderLabel2">Vanilla</span>
+    <span class="slider-label" id="sliderLabel3">Virgin</span>
+  </div>
+  <span class="warning" id="pLevelSliderWarning"></span>
 </div>
-
 
 	    
 	    <!-- submit button -->
@@ -271,10 +306,23 @@ input[type="text"]:focus, input[type="checkbox"]:focus, input[type="range"]:focu
     }
 });
 		    <!-- POP SELECTOR LOGIC -->
-		    document.getElementById("pLevelSlider").addEventListener("input", function (event) {
-    const pLevelSlider = event.target;
+		   // POP LEVEL SELECTOR
+const slider = document.getElementById("pLevelSlider");
+const sliderLabels = document.querySelectorAll(".slider-label");
+const sliderWidth = slider.offsetWidth;
+const labelWidth = sliderWidth / (sliderLabels.length - 1);
+
+sliderLabels.forEach((label, index) => {
+    const position = index * labelWidth;
+    label.style.left = `${position}px`;
+});
+
+slider.addEventListener("input", function (event) {
     const pLevelSliderWarning = document.getElementById("pLevelSliderWarning");
-    const sliderValue = pLevelSlider.value;
+    const sliderValue = event.target.value;
+    const position = (sliderValue - 1) * labelWidth;
+    const sliderCircle = document.querySelector(".slider-circle");
+    sliderCircle.style.left = `${position}px`;
 
     if (sliderValue == "1") {
         pLevelSliderWarning.textContent = "Wild";
@@ -284,6 +332,8 @@ input[type="text"]:focus, input[type="checkbox"]:focus, input[type="range"]:focu
         pLevelSliderWarning.textContent = "Virgin";
     }
 });
+
+		    <!-- submit and show output scene -->
 
 		    document.getElementById("form").addEventListener("submit", function (event) {
             event.preventDefault();
