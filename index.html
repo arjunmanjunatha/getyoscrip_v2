@@ -110,6 +110,7 @@
 </div>
 
         <div>
+		<!-- DEEPSTRUCT -->
             <label>Grab existing links from:</label>
             
         <input type="checkbox" id="cj" name="links" value="cj">
@@ -120,6 +121,15 @@
         <input type="text" id="custom" name="links" placeholder="example.com/, another-example.com/">
 
     </div>
+	    <!-- POP LEVEL SELECTOR -->
+	    <div>
+    <label for="pLevelSlider">Preference:</label>
+    <input type="range" id="pLevelSlider" name="pLevelSlider" min="1" max="3" step="1" value="1">
+    <span class="warning" id="pLevelSliderWarning"></span>
+</div>
+
+	    
+	    <!-- submit button -->
     <button type="button" class="submit-btn" onclick="generateOutput()">Submit</button>
 </form>
 	    <!-- This is output box -->
@@ -159,6 +169,21 @@
         campaignIdWarning.textContent = "";
     }
 });
+		    <!-- POP SELECTOR LOGIC -->
+		    document.getElementById("pLevelSlider").addEventListener("input", function (event) {
+    const pLevelSlider = event.target;
+    const pLevelSliderWarning = document.getElementById("pLevelSliderWarning");
+    const sliderValue = pLevelSlider.value;
+
+    if (sliderValue == "1") {
+        pLevelSliderWarning.textContent = "Wild";
+    } else if (sliderValue == "2") {
+        pLevelSliderWarning.textContent = "Vanilla";
+    } else if (sliderValue == "3") {
+        pLevelSliderWarning.textContent = "Virgin";
+    }
+});
+
 
 
 	<!-- this is the main sauce -->    
@@ -168,6 +193,7 @@
     const aid = aidInput.value.trim();
     const aidPattern = /^[a-z0-9]+$/;
     const campaignId = document.getElementById("campaignId").value.trim();
+	    const pLevelSlider = document.getElementById("pLevelSlider").value;
 
     // Check if AID input is valid, and return early if not
     if (!aidPattern.test(aid)) {
@@ -214,13 +240,20 @@ s.Stay22.params = {
         scriptContent += `
   deepStruct: [${linkValues.map(value => `"${value}"`).join(",")}],`;
     }
-	   // Add the campaign parameter if a valid Campaign ID is provided
+	   // Campaign ID
     if (campaignId) {
         scriptContent += `
   campaign: "${campaignId}",`;
     }
-
+        //POP selector
+	    
+	if (pLevelSlider == "2") {
         scriptContent += `
+  maxPLevel: "under",`;
+    } else if (pLevelSlider == "3") {
+        scriptContent += `
+  maxPLevel: "none",`;
+    }
 };
 
 // Leave this part as-is;
