@@ -157,6 +157,7 @@ input[type=range]::-moz-range-thumb {
 
     </style>
 </head>
+	<body>
  <h1>Get Me Allez</h1>
     <form id="form">
         <h2>Input your details</h2>
@@ -272,6 +273,10 @@ input[type=range]::-moz-range-thumb {
     }
 });
 
+		    document.getElementById("form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            generateOutput();
+        });
 
 
 	<!-- this is the main sauce -->    
@@ -355,7 +360,8 @@ s.Stay22.params = {
 	            const generatedScript = document.getElementById("generatedScript");
         generatedScript.textContent = scriptContent;
         document.getElementById("output").style.display = "flex";
-document.getElementById("output").style.flexDirection = "column";
+document.getElementById("output").style.flexDirection = "column"; 
+	
 
     
 	<!-- This is copy to clipboard -->
@@ -371,12 +377,5 @@ document.getElementById("output").style.flexDirection = "column";
   }
 </script>
 
-<!-- The event listener is outside the <script> element -->
-<script>
-  document.getElementById("form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    generateOutput();
-  });
-</script>
 </body>
 </html>
