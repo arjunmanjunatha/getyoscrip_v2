@@ -439,6 +439,33 @@ function copyToClipboard() {
   const copyButton = document.querySelector(".copy-btn");
   copyButton.textContent = "Copied!";
 }
+// slider thingy
+		    const slider = document.getElementById("pLevelSlider");
+const sliderLabels = document.querySelectorAll(".slider-label");
+const sliderWidth = slider.offsetWidth;
+const labelWidth = sliderWidth / (sliderLabels.length - 1);
+
+sliderLabels.forEach((label, index) => {
+  const position = index * labelWidth;
+  label.style.left = `${position}px`;
+});
+
+slider.addEventListener("input", function (event) {
+  const pLevelSliderWarning = document.getElementById("pLevelSliderWarning");
+  const sliderValue = event.target.value;
+  const position = (sliderValue - 1) * labelWidth;
+  const sliderCircle = document.querySelector(".slider-labels .slider-circle");
+
+  sliderCircle.style.left = `${position}px`;
+
+  if (sliderValue == "1") {
+    pLevelSliderWarning.textContent = "Wild";
+  } else if (sliderValue == "2") {
+    pLevelSliderWarning.textContent = "Vanilla";
+  } else if (sliderValue == "3") {
+    pLevelSliderWarning.textContent = "Virgin";
+  }
+});
 
 </script>
 
