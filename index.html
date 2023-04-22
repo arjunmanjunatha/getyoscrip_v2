@@ -322,6 +322,9 @@ slider.addEventListener("input", function (event) {
     const sliderValue = event.target.value;
     const position = (sliderValue - 1) * labelWidth;
     const sliderCircle = document.querySelector(".slider-circle");
+	console.log("sliderCircle:", sliderCircle);
+console.log("position:", position);
+
     sliderCircle.style.left = `${position}px`;
 
     if (sliderValue == "1") {
