@@ -370,7 +370,11 @@ function copyToClipboard() {
   textArea.select();
   document.execCommand("copy");
   document.body.removeChild(textArea);
+
+  const copyButton = document.querySelector(".copy-btn");
+  copyButton.textContent = "Copied!";
 }
+
 </script>
 
 </body>
