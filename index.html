@@ -350,14 +350,16 @@ s.Stay22.params = {
   twenty.src = y;
   two.parentNode.insertBefore(twenty, two);
 })(window, document, "script", "https://scripts.stay22.com/letmeallez.js");
-<\/script>`;
+"<" + "/script>";
+
 	            const generatedScript = document.getElementById("generatedScript");
         generatedScript.textContent = scriptContent;
         document.getElementById("output").style.display = "flex";
 document.getElementById("output").style.flexDirection = "column";
 
     
-	// This is copy to clipboard
+	<!-- This is copy to clipboard -->
+<script>
   function copyToClipboard() {
     const codeBox = document.getElementById("generatedScript");
     const textArea = document.createElement("textarea");
@@ -369,7 +371,7 @@ document.getElementById("output").style.flexDirection = "column";
   }
 </script>
 
-<!-- Move the event listener outside the <script> element -->
+<!-- The event listener is outside the <script> element -->
 <script>
   document.getElementById("form").addEventListener("submit", function (event) {
     event.preventDefault();
