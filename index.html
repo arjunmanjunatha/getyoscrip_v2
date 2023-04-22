@@ -73,6 +73,33 @@
             font-size: 12px;
             margin-left: 4px;
         }
+/* Slider labels */
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.slider-label {
+    position: relative;
+    background-color: #007BFF;
+    color: #FFF;
+    padding: 2px 4px;
+    border-radius: 4px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.slider-label:hover {
+    opacity: 1;
+}
+
+/* Retro text shadow */
+.slider-label {
+    text-shadow: 1px 1px 0px #ffc000, 2px 2px 0px #ff9a00, 3px 3px 0px #ff8c00, 4px 4px 0px #ff7e00;
+}
 
     </style>
 </head>
@@ -122,15 +149,22 @@
 
     </div>
 	    <!-- POP LEVEL SELECTOR -->
-	    <div>
-    <label for="pLevelSlider">Preference:</label>
+<div>
+    <label for="pLevelSlider">Choose your POP level:</label>
     <input type="range" id="pLevelSlider" name="pLevelSlider" min="1" max="3" step="1" value="1">
+    <div class="slider-labels">
+        <span class="slider-label" id="sliderLabel1">Wild</span>
+        <span class="slider-label" id="sliderLabel2">Vanilla</span>
+        <span class="slider-label" id="sliderLabel3">Virgin</span>
+    </div>
     <span class="warning" id="pLevelSliderWarning"></span>
 </div>
 
+
 	    
 	    <!-- submit button -->
-    <button type="button" class="submit-btn" onclick="generateOutput()">Submit</button>
+    <button type="submit" class="submit-btn">Submit</button>
+
 </form>
 	    <!-- This is output box -->
 <div class="output" id="output">
@@ -270,6 +304,11 @@ two.parentNode.insertBefore(twenty, two);
     }
 	<!-- this is copy to clipboard -->
 	function copyToClipboard() {
+		document.getElementById("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    generateOutput();
+});
+
     const codeBox = document.getElementById("generatedScript");
     const textArea = document.createElement("textarea");
     textArea.value = codeBox.textContent;
