@@ -181,6 +181,11 @@ input[type="text"], input[type="checkbox"], input[type="range"] {
 input[type="text"]:focus, input[type="checkbox"]:focus, input[type="range"]:focus {
     border-color: #007BFF;
 }
+.output {
+    display: inline-flex;
+    max-width: calc(100% - 120px);
+    margin: 0 auto;
+}
 
 
     </style>
@@ -407,9 +412,16 @@ scriptContent += `
 
 const generatedScript = document.getElementById("generatedScript");
 generatedScript.textContent = scriptContent;
-document.getElementById("output").style.display = "flex";
-document.getElementById("output").style.flexDirection = "column";
+ document.getElementById("output").style.display = "flex";
+    document.getElementById("output").style.flexDirection = "column";
+    scrollToOutput();
 }
+		    // scroll to output box
+		    function scrollToOutput() {
+    const output = document.getElementById("output");
+    output.scrollIntoView({ behavior: "smooth" });
+}
+
 
 //This is copy to clipboard 
 function copyToClipboard() {
